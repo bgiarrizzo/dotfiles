@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source ~/.cli_passwords
+
 alias home="cd ~/iCloudDrive/"
 
 # Detect which `ls` flavor is in use
@@ -42,14 +44,18 @@ alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en0"
 alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
 
+alias pip="pip3"
+
 # Show active network interfaces
 alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'"
 
 # Flush Directory Service cache
 alias flushdns="dscacheutil -flushcache && killall -HUP mDNSResponder"
 
-alias restart_ssh_agent="kill $(ps aux | grep 'ssh-agent' | grep -v 'grep' | awk '{print \$2 }') && exec zsh"
+alias restart_ssh_agent="kill $(ps aux | grep 'ssh-agent' | grep -v 'grep' | awk '{print $2 }') && exec zsh"
 alias update-git-reps="find ~/Projets -name .git -print -execdir sh -c 'git checkout master && git fetch -p && git pull' \; "
+
+alias subliminal="subliminal --opensubtitles ${opensubs_login} ${opensubs_passw}"
 
 # Empty the Trash on all mounted volumes and the main HDD.
 # Also, clear Apple’s System Logs to improve shell startup speed.

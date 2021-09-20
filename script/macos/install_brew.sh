@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
 
+# Install HomeBrew
+
+if [ -z /opt/homebrew/bin/brew ]; then
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    # Add HomeBrew to PATH
+    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' > ~/.zprofile
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 # Install command-line tools using Homebrew.
 
 # Make sure we’re using the latest Homebrew.
@@ -8,22 +17,16 @@ brew update
 # Upgrade any already-installed formulae.
 brew upgrade
 
-# Install a modern shell.
-brew install zsh
-brew install zsh-syntax-highlighting
-brew install zsh-autosuggestions
-
-# Install `wget` with IRI support.
-brew install wget --with-iri
+# Install `wget`.
+brew install wget
 
 # GnuPG - to sign/encrypt mails and sign commits
 brew install gnupg
 
 # Upgrade macos tools
-brew install vim --with-override-system-vi
+# brew install vim --with-override-system-vi
 brew install grep
 brew install openssh
-brew install screen
 
 # Install useful stuff
 brew install htop
@@ -32,22 +35,12 @@ brew install ssh-copy-id
 brew install tree
 brew install youtube-dl
 brew install subliminal
-brew install unrar
-
-# Install infosec tools
-brew install nmap
-brew install john
-brew install aircrack-ng
-brew install sqlmap
+# brew install unrar
+brew install cheat
 
 # Install Dev(ops)Stuff
-brew install ruby
-brew install python@3.8
-brew install python@3.9
 brew install terraform
-brew install vapor
 brew install kubernetes-cli
-brew install ansible
 brew install git-lfs
 brew install git
 brew install helm

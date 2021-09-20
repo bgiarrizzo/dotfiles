@@ -1,5 +1,5 @@
 [alias]
-    undo = reset --soft HEAD^
+	undo = reset --soft HEAD^
 	# View abbreviated SHA, description, and history graph of the latest 20 commits.
 	l = log --pretty=oneline -n 20 --graph --abbrev-commit
 	# View the current working tree status using the short format.
@@ -125,6 +125,12 @@
 [url "git://gist.github.com/"]
 	insteadOf = "gist:"
 
-
 [init]
 	defaultBranch = main
+
+[user]
+	name = Bruno Giarrizzo
+	email = bruno@giarrizzo.fr
+	signingkey = EB1F4812
+[pull]
+	rebase = false
