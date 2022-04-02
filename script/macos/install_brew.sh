@@ -26,7 +26,6 @@ brew install gnupg
 # Upgrade macos tools
 # brew install vim --with-override-system-vi
 brew install grep
-brew install openssh
 
 # Install useful stuff
 brew install htop
@@ -37,6 +36,12 @@ brew install youtube-dl
 brew install subliminal
 # brew install unrar
 brew install cheat
+brew install exa
+brew install fd
+brew install bat
+brew install btop
+brew install ncdu
+brew install duf
 
 # Install Dev(ops)Stuff
 brew install terraform
@@ -46,8 +51,8 @@ brew install git
 brew install helm
 brew install helmfile
 
-# Install twitch dependency
-brew install blackhole-16ch
+# Install SSH agent using secure enclave
+brew install secretive
 
 # Remove outdated versions from the cellar.
 brew cleanup

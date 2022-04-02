@@ -16,7 +16,7 @@ ZSH_CUSTOM=~/.zsh_custom/
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="cyberlife"
+ZSH_THEME="agnoster_custom"
 
 # Uncomment the following line to use case-sensitive completion.
 CASE_SENSITIVE="true"
@@ -50,7 +50,7 @@ export GPG_TTY=$(tty)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(docker ssh-agent gpg-agent git)
+plugins=(ssh-agent gpg-agent git)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -60,13 +60,18 @@ source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.aliases
 source ~/.functions
 
-export PIPENV_VENV_IN_PROJECT=1
-
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+export PATH="/opt/homebrew/bin/:$PATH"
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 export PATH="/opt/homebrew/opt/libxml2/bin:$PATH"
 export PATH="/opt/homebrew/opt/postgresql@12/bin:$PATH"
 export PATH="/opt/homebrew/opt/python@3.9/bin:$PATH"
 export PATH="/opt/homebrew/opt/python@3.10/bin:$PATH"
+export PATH="/opt/homebrew/opt/exa/bin:$PATH"
+export PATH="/opt/homebrew/opt/bat/bin:$PATH"
+export PATH="/opt/homebrew/opt/fd/bin:$PATH"
+export PATH="/opt/homebrew/opt/btop/bin:$PATH"
+export PATH="/opt/homebrew/opt/ncdu/bin:$PATH"
+export PATH="/opt/homebrew/opt/duf/bin:$PATH"

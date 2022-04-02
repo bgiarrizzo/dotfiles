@@ -78,6 +78,6 @@ function git_time_since_commit() {
 }
 
 PROMPT='
-%{$fg[red]%}$(date +"%H:%M")%{$reset_color%} - [ %{$fg[blue]%}%n%{$reset_color%} @ %{$fg[blue]%}%m%{$reset_color%} $(prompt_char) %{$fg[cyan]%}$(basename $(pwd)) %{$reset_color%}] $(git_prompt_short_sha)$(git_prompt_info): '
+%{$fg[red]%}$(date +"%H:%M:%S")%{$reset_color%} - [ %{$fg[blue]%}%n%{$reset_color%} @ %{$fg[blue]%}%m%{$reset_color%} $(prompt_char) %{$fg[cyan]%}$(basename $(pwd)) %{$reset_color%}] $(git_prompt_short_sha)$(git_prompt_info): '
 
 RPROMPT='${return_status}$(git_time_since_commit)$(git_prompt_status)%{$reset_color%}'
