@@ -50,6 +50,11 @@ brew install git-lfs
 brew install git
 brew install helm
 brew install helmfile
+brew install awscli
+brew install conduktor
+brew install google-cloud-sdk
+brew install gitleaks
+brew install tig
 
 # Install SSH agent using secure enclave
 brew install secretive

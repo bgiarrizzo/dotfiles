@@ -130,7 +130,12 @@
 
 [user]
 	name = Bruno Giarrizzo
-	email = bruno@giarrizzo.fr
+	email = b.giarrizzo@cyberlife.sh
 	signingkey = EB1F4812
 [pull]
 	rebase = false
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

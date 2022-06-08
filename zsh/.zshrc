@@ -50,12 +50,19 @@ export GPG_TTY=$(tty)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(ssh-agent gpg-agent git)
+plugins=(ssh-agent gpg-agent git pipenv)
 
 source $ZSH/oh-my-zsh.sh
 
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# -------------------------------------
+# Google Cloud Platform
+
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+source /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
+source /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
 
 source ~/.aliases
 source ~/.functions
@@ -63,6 +70,7 @@ source ~/.functions
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+export PATH="$HOME/.bin/:$PATH"
 export PATH="/opt/homebrew/bin/:$PATH"
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 export PATH="/opt/homebrew/opt/libxml2/bin:$PATH"
