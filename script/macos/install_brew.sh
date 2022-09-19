@@ -55,6 +55,7 @@ brew install conduktor
 brew install google-cloud-sdk
 brew install gitleaks
 brew install tig
+brew install commitizen
 
 # Install SSH agent using secure enclave
 brew install secretive
