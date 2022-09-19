@@ -28,7 +28,7 @@
 	reb = "!r() { git rebase -i HEAD~$1; }; r"
 	# Remove branches that have already been merged with main.
 	# a.k.a. ‘delete merged’
-	dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+	housekeeping = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
     prune = fetch --prune
 	# List contributors with number of commits.
 	contributors = shortlog --summary --numbered
@@ -109,6 +109,7 @@
 	default = simple
 	# Make `git push` push relevant annotated tags when pushing branches out.
 	followTags = true
+	autoSetupRemote = true
 
 # URL shorthands
 [url "git@github.com:"]
@@ -133,9 +134,9 @@
 [user]
 	name = Bruno Giarrizzo
 	email = b.giarrizzo@cyberlife.sh
-	signingkey = EB1F4812
 [pull]
 	rebase = false
+
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f

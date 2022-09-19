@@ -1,11 +1,13 @@
 # BASIC CONFIG
 
-export LC_ALL=fr_FR.UTF-8
-export LC_NUMERIC=fr_FR.UTF-8
-export LC_TIME=fr_FR.UTF-8
-export LC_COLLATE=fr_FR.UTF-8
-export LC_MONETARY=fr_FR.UTF-8
-export LC_MESSAGES=fr_FR.UTF-8
+if [ -z "$CODESPACES" ]; then
+    export LC_ALL=fr_FR.UTF-8
+    export LC_NUMERIC=fr_FR.UTF-8
+    export LC_TIME=fr_FR.UTF-8
+    export LC_COLLATE=fr_FR.UTF-8
+    export LC_MONETARY=fr_FR.UTF-8
+    export LC_MESSAGES=fr_FR.UTF-8
+fi
 
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
@@ -16,7 +18,7 @@ ZSH_CUSTOM=~/.zsh_custom/
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="agnoster_custom"
+ZSH_THEME="cyberlife"
 
 # Uncomment the following line to use case-sensitive completion.
 CASE_SENSITIVE="true"
@@ -46,40 +48,61 @@ alias history='fc -il 1'
 # Without this alias git commit with gpg doesn't work
 export GPG_TTY=$(tty)
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(ssh-agent gpg-agent git pipenv)
-
 source $ZSH/oh-my-zsh.sh
 
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+if [ -z "$CODESPACES" ]; then
+    # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+    # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+    # Example format: plugins=(rails git textmate ruby lighthouse)
+    # Add wisely, as too many plugins slow down shell startup.
+    plugins=(ssh-agent gpg-agent git pipenv)
+
+    source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
 
 # -------------------------------------
 # Google Cloud Platform
 
-export USE_GKE_GCLOUD_AUTH_PLUGIN=True
-source /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
-source /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
+if [ -z "$CODESPACES" ]; then
+    export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+    source /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
+    source /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
+fi
+
+# -------------------------------------
+# Kubectll
+
+if [ -z "$CODESPACES" ]; then
+    source <(kubectl completion zsh)
+    complete -o default -F __start_kubectl k
+fi
+
+# -------------------------------------
+# Vault
+
+if [ -z "$CODESPACES" ]; then
+    export VAULT_ADDR=https://vault.factory.adeo.cloud
+    export VAULT_NAMESPACE=adeo/data-streaming-platform
+
+    # If you come from bash you might have to change your $PATH.
+    # export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+    export PATH="$HOME/.bin/:$PATH"
+    export PATH="/opt/homebrew/bin/:$PATH"
+    export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+    export PATH="/opt/homebrew/opt/libxml2/bin:$PATH"
+    export PATH="/opt/homebrew/opt/postgresql@12/bin:$PATH"
+    export PATH="/opt/homebrew/opt/python@3.9/bin:$PATH"
+    export PATH="/opt/homebrew/opt/python@3.10/bin:$PATH"
+    export PATH="/opt/homebrew/opt/exa/bin:$PATH"
+    export PATH="/opt/homebrew/opt/bat/bin:$PATH"
+    export PATH="/opt/homebrew/opt/fd/bin:$PATH"
+    export PATH="/opt/homebrew/opt/btop/bin:$PATH"
+    export PATH="/opt/homebrew/opt/ncdu/bin:$PATH"
+    export PATH="/opt/homebrew/opt/duf/bin:$PATH"
+fi
 
 source ~/.aliases
 source ~/.functions
-
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-export PATH="$HOME/.bin/:$PATH"
-export PATH="/opt/homebrew/bin/:$PATH"
-export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
-export PATH="/opt/homebrew/opt/libxml2/bin:$PATH"
-export PATH="/opt/homebrew/opt/postgresql@12/bin:$PATH"
-export PATH="/opt/homebrew/opt/python@3.9/bin:$PATH"
-export PATH="/opt/homebrew/opt/python@3.10/bin:$PATH"
-export PATH="/opt/homebrew/opt/exa/bin:$PATH"
-export PATH="/opt/homebrew/opt/bat/bin:$PATH"
-export PATH="/opt/homebrew/opt/fd/bin:$PATH"
-export PATH="/opt/homebrew/opt/btop/bin:$PATH"
-export PATH="/opt/homebrew/opt/ncdu/bin:$PATH"
-export PATH="/opt/homebrew/opt/duf/bin:$PATH"
