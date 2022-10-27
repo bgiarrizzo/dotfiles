@@ -20,7 +20,6 @@ bash script/macos/install_zsh.sh
 echo "stowing dotfiles ..."
 stow -t ${HOME} cheat
 stow -t ${HOME} curl
-stow -t ${HOME} docker
 stow -t ${HOME} git
 stow -t ${HOME} global_config
 stow -t ${HOME} vim

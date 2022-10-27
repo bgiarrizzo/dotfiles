@@ -1,3 +1,5 @@
+NEWLINE=$'\n'
+
 # Codespaces zsh prompt theme
 __zsh_prompt() {
     local prompt_username
@@ -15,7 +17,7 @@ __zsh_prompt() {
 
     PROMPT+='%{$fg_bold[blue]%}%(5~|%-1~/…/%3~|%4~)%{$reset_color%} ' # cwd
     PROMPT+='$([ "$(git config --get codespaces-theme.hide-status 2>/dev/null)" != 1 ] && git_prompt_info)' # Git status
-    PROMPT+='%{$fg[white]%}$ %{$reset_color%}'
+    PROMPT+='%{$fg[white]%}${NEWLINE}$ %{$reset_color%}'
     unset -f __zsh_prompt
 }
 

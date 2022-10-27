@@ -102,6 +102,9 @@ if [ -z "$CODESPACES" ]; then
     export PATH="/opt/homebrew/opt/btop/bin:$PATH"
     export PATH="/opt/homebrew/opt/ncdu/bin:$PATH"
     export PATH="/opt/homebrew/opt/duf/bin:$PATH"
+    export PATH="/opt/homebrew/opt/go@1.16/bin:$PATH"
+    export PATH="/opt/homebrew/opt/go@1.17/bin:$PATH"
+    export PATH="/opt/homebrew/opt/ssh-copy-id/bin:$PATH"
 fi
 
 source ~/.aliases
