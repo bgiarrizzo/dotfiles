@@ -28,6 +28,7 @@ brew install gnupg
 brew install grep
 
 # Install useful stuff
+brew install --cask alacritty
 brew install htop
 brew install stow
 brew install ssh-copy-id
