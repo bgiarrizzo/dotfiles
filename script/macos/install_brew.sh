@@ -44,7 +44,7 @@ brew install ncdu
 brew install duf
 
 # Install Dev(ops)Stuff
-brew install --cask docker
+brew reinstall --cask docker
 brew install terraform
 brew install kubernetes-cli
 brew install git-lfs
@@ -63,36 +63,37 @@ brew install nmap
 brew install wpscanteam/tap/wpscan
 
 # Install useful stuff
-brew install --cask iterm2
-brew install --cask discord
-brew install --cask transmission
-brew install --cask appcleaner
-brew install --cask vlc
-brew install --cask slack
-brew install --cask notion
-brew install --cask openemu
-brew install --cask lens
-brew install --cask visual-studio-code
-brew install --cask shadow
-brew install --cask adguard
-brew install --cask gimp
-brew install --cask google-chrome
-brew install --cask insomnia
+brew reinstall --cask iterm2
+brew reinstall --cask discord
+brew reinstall --cask transmission
+brew reinstall --cask appcleaner
+brew reinstall --cask vlc
+brew reinstall --cask slack
+brew reinstall --cask notion
+brew reinstall --cask lens
+brew reinstall --cask visual-studio-code
+brew reinstall --cask shadow
+brew reinstall --cask adguard
+brew reinstall --cask gimp
+brew reinstall --cask google-chrome
+brew reinstall --cask insomnia
 
 # Install SSH agent using secure enclave
-brew install --cask secretive
+brew reinstall --cask secretive
 
 # Remove outdated versions from the cellar.
 brew cleanup
 
-echo -e "# ------------------------------------------------ \n\n"
-echo "Install Finished"
-echo "Don't forget to install the following manually :"
+echo -e "# ------------------------------------------------ \n"
+echo -e "Install Finished\n"
+echo "Don't forget to install the following via :"
+echo "- AppStore :"
 echo "  - Magnet"
 echo "  - NewsExplorer"
 echo "  - Pages"
 echo "  - Numbers"
 echo "  - Keynote"
 echo "  - Super Agent"
+echo "  - Adguard For Safari"
+echo "- Dell Website :"
 echo "  - DisplayLink Manager"
-echo "  - Adguard"
