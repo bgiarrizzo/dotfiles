@@ -73,7 +73,6 @@ brew reinstall --cask notion
 brew reinstall --cask lens
 brew reinstall --cask visual-studio-code
 brew reinstall --cask shadow
-brew reinstall --cask adguard
 brew reinstall --cask gimp
 brew reinstall --cask google-chrome
 brew reinstall --cask insomnia
