@@ -71,7 +71,7 @@ if [ -z "$CODESPACES" ]; then
 
 	alias restart_coreaudio="sudo kill -9 $(ps ax|grep 'coreaudio[a-z]' | awk '{print $1}')"
 	alias restart_ssh_agent="kill $(ps aux | grep 'ssh-agent' | grep -v 'grep' | awk '{print $2 }') && exec zsh"
-	alias update-git-reps="find ~/Projets -name .git -print -execdir sh -c 'git checkout master && git fetch -p && git pull' \; "
+	alias update-git-reps="find ~/code/ -name .git -print -execdir sh -c 'git fetch origin' \; "
 
 	alias subliminal="subliminal --opensubtitles ${opensubs_login} ${opensubs_passw}"
 

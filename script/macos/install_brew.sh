@@ -69,6 +69,7 @@ brew reinstall --cask transmission
 brew reinstall --cask appcleaner
 brew reinstall --cask vlc
 brew reinstall --cask slack
+brew reinstall --cask signal
 brew reinstall --cask notion
 brew reinstall --cask lens
 brew reinstall --cask visual-studio-code

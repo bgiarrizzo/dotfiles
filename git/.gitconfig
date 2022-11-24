@@ -14,6 +14,8 @@
 	c = clone --recursive
 	# Commit all changes.
 	ca = !git add -A && git commit -av
+	# Get Branches and tags from origin and pull code of current branch
+	fop = !git fetch origin && git pull
 	# Switch to a branch, creating it if necessary.
 	go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
 	# Show verbose output about tags, branches or remotes
