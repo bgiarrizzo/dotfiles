@@ -50,15 +50,20 @@ export GPG_TTY=$(tty)
 
 source $ZSH/oh-my-zsh.sh
 
+if [ ${HOME} != "/home/vscode" ]; then
+    source ~/.cli_passwords
+fi
+
 if [ -z "$CODESPACES" ]; then
     # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
     # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
     # Example format: plugins=(rails git textmate ruby lighthouse)
     # Add wisely, as too many plugins slow down shell startup.
     plugins=(ssh-agent gpg-agent git pipenv)
-
-    source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-    source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+    if [ ${HOME} != "/home/vscode" ]; then
+        source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+        source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+    fi
 fi
 
 
@@ -66,17 +71,21 @@ fi
 # Google Cloud Platform
 
 if [ -z "$CODESPACES" ]; then
-    export USE_GKE_GCLOUD_AUTH_PLUGIN=True
-    source /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
-    source /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
+    if [ ${HOME} != "/home/vscode" ]; then
+        export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+        source /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
+        source /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
+    fi
 fi
 
 # -------------------------------------
-# Kubectll
+# Kubectl
 
 if [ -z "$CODESPACES" ]; then
-    source <(kubectl completion zsh)
-    complete -o default -F __start_kubectl k
+    if [ ${HOME} != "/home/vscode" ]; then
+        source <(kubectl completion zsh)
+        complete -o default -F __start_kubectl k
+    fi
 fi
 
 # -------------------------------------

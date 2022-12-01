@@ -44,7 +44,6 @@ brew install ncdu
 brew install duf
 
 # Install Dev(ops)Stuff
-brew reinstall --cask docker
 brew install terraform
 brew install kubernetes-cli
 brew install git-lfs

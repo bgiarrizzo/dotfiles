@@ -14,6 +14,8 @@
 	c = clone --recursive
 	# Commit all changes.
 	ca = !git add -A && git commit -av
+	# Checkout main or master, and fetch all latest changes.
+	comfop = !git checkout master 2> /dev/null || git checkout main && git fetch origin && git pull
 	# Get Branches and tags from origin and pull code of current branch
 	fop = !git fetch origin && git pull
 	# Switch to a branch, creating it if necessary.

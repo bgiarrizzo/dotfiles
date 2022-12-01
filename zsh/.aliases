@@ -1,13 +1,13 @@
-#!/usr/bin/env bash
-
-if [[ -f "~/.cli_passwords" ]]; then
-	source ~/.cli_passwords
-fi
-
 # bat
-alias cat='bat --style="header" --paging=never'
-alias catn='bat --pager "less -RF"'
-alias batn='bat --pager "less -RF"'
+if [ ${HOME} != "/home/vscode" ]; then
+	alias cat='bat --style="header" --paging=never'
+	alias catn='bat --pager "less -RF"'
+	alias batn='bat --pager "less -RF"'
+else
+	alias cat='batcat --style="header" --paging=never'
+	alias catn='batcat --pager "less -RF"'
+	alias batn='batcat --pager "less -RF"'
+fi
 
 # exa
 alias ls="exa -a --icons"                   # short, multi-line
@@ -53,8 +53,8 @@ if [ -z "$CODESPACES" ]; then
 	# ncdu
 	alias du="ncdu"
 
-	# Get macOS Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
-	alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; npm install npm -g; npm update -g; sudo gem update --system; sudo gem update; sudo gem cleanup'
+	# Get macOS Software Updates & Homebrew packages
+	alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup'
 
 	# IP addresses
 	alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
@@ -69,7 +69,7 @@ if [ -z "$CODESPACES" ]; then
 	# Flush Directory Service cache
 	alias flushdns="dscacheutil -flushcache && killall -HUP mDNSResponder"
 
-	alias restart_coreaudio="sudo kill -9 $(ps ax|grep 'coreaudio[a-z]' | awk '{print $1}')"
+	alias restart_coreaudio="sudo pkill coreaudiod"
 	alias restart_ssh_agent="kill $(ps aux | grep 'ssh-agent' | grep -v 'grep' | awk '{print $2 }') && exec zsh"
 	alias update-git-reps="find ~/code/ -name .git -print -execdir sh -c 'git fetch origin' \; "
 
