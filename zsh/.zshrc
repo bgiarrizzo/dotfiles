@@ -61,8 +61,8 @@ if [ -z "$CODESPACES" ]; then
     # Add wisely, as too many plugins slow down shell startup.
     plugins=(ssh-agent gpg-agent git pipenv)
     if [ ${HOME} != "/home/vscode" ]; then
-        source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-        source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+        source "$(/opt/homebrew/bin/brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+        source "$(/opt/homebrew/bin/brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
     fi
 fi
 
@@ -73,8 +73,8 @@ fi
 if [ -z "$CODESPACES" ]; then
     if [ ${HOME} != "/home/vscode" ]; then
         export USE_GKE_GCLOUD_AUTH_PLUGIN=True
-        source /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
-        source /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
+        # source "$(/opt/homebrew/bin/brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
+        source "$(/opt/homebrew/bin/brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
     fi
 fi
 
@@ -99,21 +99,20 @@ if [ -z "$CODESPACES" ]; then
     # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
     export PATH="$HOME/.bin/:$PATH"
-    export PATH="/opt/homebrew/bin/:$PATH"
-    export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
-    export PATH="/opt/homebrew/opt/libxml2/bin:$PATH"
-    export PATH="/opt/homebrew/opt/postgresql@12/bin:$PATH"
-    export PATH="/opt/homebrew/opt/python@3.9/bin:$PATH"
-    export PATH="/opt/homebrew/opt/python@3.10/bin:$PATH"
-    export PATH="/opt/homebrew/opt/exa/bin:$PATH"
-    export PATH="/opt/homebrew/opt/bat/bin:$PATH"
-    export PATH="/opt/homebrew/opt/fd/bin:$PATH"
-    export PATH="/opt/homebrew/opt/btop/bin:$PATH"
-    export PATH="/opt/homebrew/opt/ncdu/bin:$PATH"
-    export PATH="/opt/homebrew/opt/duf/bin:$PATH"
-    export PATH="/opt/homebrew/opt/go@1.16/bin:$PATH"
-    export PATH="/opt/homebrew/opt/go@1.17/bin:$PATH"
-    export PATH="/opt/homebrew/opt/ssh-copy-id/bin:$PATH"
+    export PATH="$(/opt/homebrew/bin/brew --prefix)/bin/:$PATH"
+    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/ruby/bin:$PATH"
+    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/python@3/bin:$PATH"
+    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/python@3.10/bin:$PATH"
+    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/python@3.11/bin:$PATH"
+    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/exa/bin:$PATH"
+    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/bat/bin:$PATH"
+    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/fd/bin:$PATH"
+    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/btop/bin:$PATH"
+    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/ncdu/bin:$PATH"
+    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/duf/bin:$PATH"
+    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/go@1.17/bin:$PATH"
+    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/go@1.20/bin:$PATH"
+    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/ssh-copy-id/bin:$PATH"
 fi
 
 source ~/.aliases
