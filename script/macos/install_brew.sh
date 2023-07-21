@@ -17,6 +17,9 @@ brew update
 # Upgrade any already-installed formulae.
 brew upgrade
 
+# Purge Installation
+brew remove --force $(brew list --formula)
+
 # Install `wget`.
 brew install wget
 
@@ -28,13 +31,13 @@ brew install gnupg
 brew install grep
 
 # Install CLI stuff
-brew install htop
 brew install stow
 brew install ssh-copy-id
 brew install tree
 brew install youtube-dl
 brew install subliminal
-# brew install unrar
+brew reinstall --cask rar
+brew install p7zip
 brew install cheat
 brew install exa
 brew install fd
@@ -42,6 +45,8 @@ brew install bat
 brew install btop
 brew install ncdu
 brew install duf
+brew install gnu-sed
+brew install watch
 
 # Install Dev(ops)Stuff
 brew install terraform
@@ -51,34 +56,32 @@ brew install git
 brew install helm
 brew install helmfile
 brew install awscli
-brew install conduktor
-brew install google-cloud-sdk
+brew reinstall --cask conduktor
+brew reinstall --cask google-cloud-sdk
 brew install tig
 brew install commitizen
+brew install k9s
+brew install kdash
 
-# Install Security stuff
-brew install gitleaks
-brew install nmap
-brew install wpscanteam/tap/wpscan
+# # Install useful stuff
+# brew reinstall --cask iterm2
+# brew reinstall --cask discord
+# brew reinstall --cask transmission
+# brew reinstall --cask appcleaner
+# brew reinstall --cask vlc
+# brew reinstall --cask slack
+# brew reinstall --cask signal
+# brew reinstall --cask notion
+# brew reinstall --cask visual-studio-code
+# brew reinstall --cask shadow
+# brew reinstall --cask gimp
+# brew reinstall --cask google-chrome
+# brew reinstall --cask insomnia
+# brew reinstall --cask blackhole-2ch
+# brew reinstall --cask obs
 
-# Install useful stuff
-brew reinstall --cask iterm2
-brew reinstall --cask discord
-brew reinstall --cask transmission
-brew reinstall --cask appcleaner
-brew reinstall --cask vlc
-brew reinstall --cask slack
-brew reinstall --cask signal
-brew reinstall --cask notion
-brew reinstall --cask lens
-brew reinstall --cask visual-studio-code
-brew reinstall --cask shadow
-brew reinstall --cask gimp
-brew reinstall --cask google-chrome
-brew reinstall --cask insomnia
-
-# Install SSH agent using secure enclave
-brew reinstall --cask secretive
+# # Install SSH agent using secure enclave
+# brew reinstall --cask secretive
 
 # Remove outdated versions from the cellar.
 brew cleanup
@@ -94,5 +97,7 @@ echo "  - Numbers"
 echo "  - Keynote"
 echo "  - Super Agent"
 echo "  - Adguard For Safari"
+echo "- DockerWebsite :"
+echo "  - Docker For Mac"
 echo "- Dell Website :"
 echo "  - DisplayLink Manager"
