@@ -18,7 +18,7 @@ brew update
 brew upgrade
 
 # Purge Installation
-brew remove --force $(brew list --formula)
+# brew remove --force $(brew list --formula)
 
 # Install `wget`.
 brew install wget
@@ -35,8 +35,7 @@ brew install stow
 brew install ssh-copy-id
 brew install tree
 brew install youtube-dl
-brew install subliminal
-brew reinstall --cask rar
+brew install --cask rar
 brew install p7zip
 brew install cheat
 brew install exa
@@ -56,32 +55,26 @@ brew install git
 brew install helm
 brew install helmfile
 brew install awscli
-brew reinstall --cask conduktor
-brew reinstall --cask google-cloud-sdk
+brew install --cask conduktor
+brew install --cask google-cloud-sdk
 brew install tig
 brew install commitizen
 brew install k9s
 brew install kdash
 
 # # Install useful stuff
-# brew reinstall --cask iterm2
-# brew reinstall --cask discord
-# brew reinstall --cask transmission
-# brew reinstall --cask appcleaner
-# brew reinstall --cask vlc
-# brew reinstall --cask slack
-# brew reinstall --cask signal
-# brew reinstall --cask notion
-# brew reinstall --cask visual-studio-code
-# brew reinstall --cask shadow
-# brew reinstall --cask gimp
-# brew reinstall --cask google-chrome
-# brew reinstall --cask insomnia
-# brew reinstall --cask blackhole-2ch
-# brew reinstall --cask obs
+brew install --cask iterm2
+brew install --cask discord
+brew install --cask appcleaner
+brew install --cask vlc
+brew install --cask slack
+brew install --cask visual-studio-code
+brew install --cask google-chrome
+brew install --cask insomnia
+brew install --cask obs
 
 # # Install SSH agent using secure enclave
-# brew reinstall --cask secretive
+brew install --cask secretive
 
 # Remove outdated versions from the cellar.
 brew cleanup
@@ -97,7 +90,7 @@ echo "  - Numbers"
 echo "  - Keynote"
 echo "  - Super Agent"
 echo "  - Adguard For Safari"
-echo "- DockerWebsite :"
+echo "- Docker Website :"
 echo "  - Docker For Mac"
 echo "- Dell Website :"
 echo "  - DisplayLink Manager"

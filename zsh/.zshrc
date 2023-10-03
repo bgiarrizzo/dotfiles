@@ -92,27 +92,33 @@ fi
 # Vault
 
 if [ -z "$CODESPACES" ]; then
-    export VAULT_ADDR=https://vault.factory.adeo.cloud
-    export VAULT_NAMESPACE=adeo/data-streaming-platform
+    if [ ${HOME} != "/home/vscode" ]; then
+        export VAULT_ADDR=https://vault.factory.adeo.cloud
+        export VAULT_NAMESPACE=adeo/data-streaming-platform
 
-    # If you come from bash you might have to change your $PATH.
-    # export PATH=$HOME/bin:/usr/local/bin:$PATH
+        # If you come from bash you might have to change your $PATH.
+        # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-    export PATH="$HOME/.bin/:$PATH"
-    export PATH="$(/opt/homebrew/bin/brew --prefix)/bin/:$PATH"
-    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/ruby/bin:$PATH"
-    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/python@3/bin:$PATH"
-    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/python@3.10/bin:$PATH"
-    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/python@3.11/bin:$PATH"
-    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/exa/bin:$PATH"
-    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/bat/bin:$PATH"
-    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/fd/bin:$PATH"
-    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/btop/bin:$PATH"
-    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/ncdu/bin:$PATH"
-    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/duf/bin:$PATH"
-    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/go@1.17/bin:$PATH"
-    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/go@1.20/bin:$PATH"
-    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/ssh-copy-id/bin:$PATH"
+        export PATH="$HOME/.bin/:$PATH"
+        export PATH="$(/opt/homebrew/bin/brew --prefix)/bin/:$PATH"
+        
+        export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/ruby/bin:$PATH"
+
+        export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/python@3/bin:$PATH"
+        export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/python@3.10/bin:$PATH"
+        export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/python@3.11/bin:$PATH"
+        
+        export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/go@1.17/bin:$PATH"
+        export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/go@1.20/bin:$PATH"
+
+        export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/exa/bin:$PATH"
+        export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/bat/bin:$PATH"
+        export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/fd/bin:$PATH"
+        export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/btop/bin:$PATH"
+        export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/ncdu/bin:$PATH"
+        export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/duf/bin:$PATH"
+        export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/ssh-copy-id/bin:$PATH"
+    fi
 fi
 
 source ~/.aliases
