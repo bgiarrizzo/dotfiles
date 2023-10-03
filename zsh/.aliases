@@ -4,18 +4,21 @@ if [ ${HOME} != "/home/vscode" ]; then
 	alias catn='bat --pager "less -RF"'
 	alias batn='bat --pager "less -RF"'
 else
-	alias cat='batcat --style="header" --paging=never'
-	alias catn='batcat --pager "less -RF"'
-	alias batn='batcat --pager "less -RF"'
+	alias cat='/usr/bin/cat'
 fi
 
-# exa
-alias ls="exa -a --icons"                   # short, multi-line
-alias ld="ll"                               # ^^^, NOTE: Trying to move to this for alternate hand commands
-alias ll="exa -lagh --icons"                  # list with info
-alias lt="exa -a --tree --icons --level=2"  # list with tree level 2
-alias ltf="exa -a --tree --icons"           # list with tree
-alias lat="exa -lagh --tree --icons"          # list with info and tree
+if [ ${HOME} != "/home/vscode" ]; then
+	# exa
+	alias ls="exa -a --icons"                   # short, multi-line
+	alias ld="ll"                               # ^^^, NOTE: Trying to move to this for alternate hand commands
+	alias ll="exa -lagh --icons"                  # list with info
+	alias lt="exa -a --tree --icons --level=2"  # list with tree level 2
+	alias ltf="exa -a --tree --icons"           # list with tree
+	alias lat="exa -lagh --tree --icons"          # list with info and tree
+else 
+	alias ls="/usr/bin/ls --color"                   # short, multi-line
+	alias ll="/usr/bin/ls --color -lahg"                  # list with info
+fi
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
@@ -36,51 +39,56 @@ alias egrep='egrep --color=auto'
 alias week='date +%V'
 
 if [ -z "$CODESPACES" ]; then
-	alias update_dotfiles="cd ~/code/dotfiles && git pull && cd -"
+	if [ ${HOME} != "/home/vscode" ]; then
+		alias update_dotfiles="cd ~/code/dotfiles && git pull && cd -"
+		
+		alias home="cd ~/iCloudDrive/"
+
+		# btop
+		alias top="btop --utf-force"
+		alias btop="btop --utf-force"
+		alias htop="btop --utf-force"
+
+		# fd
+		alias locate="fd"
+		alias find="fd"
+
+		# duf
+		alias df="duf"
+
+		# ncdu
+		alias du="ncdu"
+
+		# Get macOS Software Updates & Homebrew packages
+		alias update='brew update; brew upgrade; brew cleanup; sudo softwareupdate -i -a'
 	
-	alias home="cd ~/iCloudDrive/"
+		# IP addresses
+		alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+		alias localip="ipconfig getifaddr en0"
+	fi
 
-	# btop
-	alias top="btop --utf-force"
-	alias btop="btop --utf-force"
-	alias htop="btop --utf-force"
-
-	# fd
-	alias locate="fd"
-	alias find="fd"
-
-	# duf
-	alias df="duf"
-
-	# ncdu
-	alias du="ncdu"
-
-	# Get macOS Software Updates & Homebrew packages
-	alias update='brew update; brew upgrade; brew cleanup; sudo softwareupdate -i -a'
-
-	# IP addresses
-	alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
-	alias localip="ipconfig getifaddr en0"
 	alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
 
 	alias pip="pip3"
 
-	# Show active network interfaces
-	alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'"
+	if [ ${HOME} != "/home/vscode" ]; then
+		# Show active network interfaces
+		alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'"
 
-	# Flush Directory Service cache
-	alias flushdns="dscacheutil -flushcache && killall -HUP mDNSResponder"
+		# Flush Directory Service cache
+		alias flushdns="dscacheutil -flushcache && killall -HUP mDNSResponder"
 
-	alias restart_coreaudio="sudo pkill coreaudiod"
-	alias restart_ssh_agent="kill $(ps aux | grep 'ssh-agent' | grep -v 'grep' | awk '{print $2 }') && exec zsh"
-	alias update-git-reps="find ~/code/ -name .git -print -execdir sh -c 'git fetch origin' \; "
+		alias restart_coreaudio="sudo pkill coreaudiod"
+		alias restart_ssh_agent="kill $(ps aux | grep 'ssh-agent' | grep -v 'grep' | awk '{print $2 }') && exec zsh"
+		alias update-git-reps="find ~/code/ -name .git -print -execdir sh -c 'git fetch origin' \; "
 
-	alias subliminal="subliminal --opensubtitles ${opensubs_login} ${opensubs_passw}"
+		alias subliminal="subliminal --opensubtitles ${opensubs_login} ${opensubs_passw}"
 
-	# Empty the Trash on all mounted volumes and the main HDD.
-	# Also, clear Apple’s System Logs to improve shell startup speed.
-	# Finally, clear download history from quarantine. https://mths.be/bum
-	alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl; sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'delete from LSQuarantineEvent'"
+		# Empty the Trash on all mounted volumes and the main HDD.
+		# Also, clear Apple’s System Logs to improve shell startup speed.
+		# Finally, clear download history from quarantine. https://mths.be/bum
+		alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl; sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'delete from LSQuarantineEvent'"
 
-	alias k=kubectl
+		alias k=kubectl
+	fi
 fi 
