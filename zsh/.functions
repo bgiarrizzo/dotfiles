@@ -1,5 +1,31 @@
 #!/usr/bin/env bash
 
+determine_if_codespaces_or_macos_or_linux() {
+    if [ ! -z "$CODESPACES" ]; then
+        CODESPACE=true
+    elif [[ "$(uname)" == "Darwin" ]]; then
+        MACOS=true
+    else
+        LINUX=true
+    fi
+}
+
+determine_dotfiles_dir() {
+    # In any case, in codespaces, dotfiles are stored in this location
+    if [ "$CODESPACE" ]; then
+        dotfiles_dir="/workspaces/.codespaces/.persistedshare/dotfiles"
+    fi;
+
+    # If Macos Or linux, check where the dotfiles are stored
+    if [ "$MACOS" ] || [ "$LINUX" ]; then
+        if [ -d "${HOME}/dotfiles" ]; then
+            dotfiles_dir="${HOME}/dotfiles"
+        else
+            dotfiles_dir="${HOME}/code/dotfiles"
+        fi
+    fi;
+}
+
 # Create a new directory and enter it
 function mkd() {
 	mkdir -p "$@" && cd "$_";

@@ -1,24 +1,34 @@
-# bat
-if [ ${HOME} != "/home/vscode" ]; then
-	alias cat='bat --style="header" --paging=never'
-	alias catn='bat --pager "less -RF"'
-	alias batn='bat --pager "less -RF"'
-else
-	alias cat='/usr/bin/cat'
+#!/usr/bin/env zsh
+
+source ${HOME}/.functions
+
+determine_if_codespaces_or_macos_or_linux
+determine_dotfiles_dir
+
+
+if [ ! command -v subliminal &> /dev/null ]; then
+	alias subliminal="subliminal --opensubtitles ${opensubs_login} ${opensubs_passw}"
+fi 
+
+if [ ! command -v kubectl &> /dev/null ]; then
+	alias k="kubectl"
 fi
 
-if [ ${HOME} != "/home/vscode" ]; then
-	# exa
-	alias ls="exa -a --icons"                   # short, multi-line
-	alias ld="ll"                               # ^^^, NOTE: Trying to move to this for alternate hand commands
+# -------------------------------------
+# Exa / ls / ll / ld ...
+
+if [ ! command -v exa &> /dev/null ]; then
+	alias ls="exa -a --icons"
 	alias ll="exa -lagh --icons"                  # list with info
 	alias lt="exa -a --tree --icons --level=2"  # list with tree level 2
 	alias ltf="exa -a --tree --icons"           # list with tree
-	alias lat="exa -lagh --tree --icons"          # list with info and tree
-else 
+	alias lat="exa -lagh --tree --icons" 
+else
 	alias ls="/usr/bin/ls --color"                   # short, multi-line
-	alias ll="/usr/bin/ls --color -lahg"                  # list with info
+	alias ll="/usr/bin/ls --color -lahg" 
 fi
+
+alias ld="ll"                               # ^^^, NOTE: Trying to move to this for alternate hand commands
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
@@ -29,66 +39,100 @@ else # macOS `ls`
 	export LSCOLORS='BxBxhxDxfxhxhxhxhxcxcx'
 fi
 
+# -------------------------------------
+# Bat / cat ...
+
+if [ ! command -v bat &> /dev/null ]; then
+	alias cat='bat --style="header" --paging=never'
+	alias catn='bat --pager "less -RF"'
+	alias batn='bat --pager "less -RF"'
+else
+	alias cat='/usr/bin/cat'
+fi
+
+# -------------------------------------
+# Grep
+
 # Always enable colored `grep` output
-# Note: `GREP_OPTIONS="--color=auto"` is deprecated, hence the alias usage.
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
-# Get week number
-alias week='date +%V'
+# -------------------------------------
+# top / htop / btop
 
-if [ -z "$CODESPACES" ]; then
-	if [ ${HOME} != "/home/vscode" ]; then
-		alias update_dotfiles="cd ~/code/dotfiles && git pull && cd -"
-		
-		alias home="cd ~/iCloudDrive/"
+if [ ! command -v btop &> /dev/null ]; then
+	alias top="btop --utf-force"
+	alias btop="btop --utf-force"
+	alias htop="btop --utf-force"
+else
+	alias top="/usr/bin/top"
+	alias htop="/usr/bin/htop"
+fi
 
-		# btop
-		alias top="btop --utf-force"
-		alias btop="btop --utf-force"
-		alias htop="btop --utf-force"
+# -------------------------------------
+# fd / locate / find
 
-		# fd
-		alias locate="fd"
-		alias find="fd"
+if [ ! command -v fd &> /dev/null ]; then
+	alias locate="fd"
+	alias find="fd"
+else
+	alias locate="/usr/bin/locate"
+	alias find="/usr/bin/find"
+fi
 
-		# duf
-		alias df="duf"
 
-		# ncdu
-		alias du="ncdu"
+# -------------------------------------
+# du / duf / ncdu
 
-		# Get macOS Software Updates & Homebrew packages
-		alias update='brew update; brew upgrade; brew cleanup; sudo softwareupdate -i -a'
-	
-		# IP addresses
-		alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
-		alias localip="ipconfig getifaddr en0"
-	fi
+if [ ! command -v duf &> /dev/null ]; then
+	# duf
+	alias df="duf"
+fi
 
+if [ ! command -v ncdu &> /dev/null ]; then
+	# ncdu
+	alias du="ncdu"
+fi
+
+# -------------------------------------
+# Network / IP / DNS
+
+if [ "$MACOS" ] || [ "$LINUX" ]; then
+	# List of local IP addresses
 	alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
-
-	alias pip="pip3"
-
-	if [ ${HOME} != "/home/vscode" ]; then
+	if [ "$MACOS" ]; then 
+		# Get local IP address
+		alias localip="ipconfig getifaddr en0"
 		# Show active network interfaces
 		alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'"
-
-		# Flush Directory Service cache
-		alias flushdns="dscacheutil -flushcache && killall -HUP mDNSResponder"
-
-		alias restart_coreaudio="sudo pkill coreaudiod"
-		alias restart_ssh_agent="kill $(ps aux | grep 'ssh-agent' | grep -v 'grep' | awk '{print $2 }') && exec zsh"
-		alias update-git-reps="find ~/code/ -name .git -print -execdir sh -c 'git fetch origin' \; "
-
-		alias subliminal="subliminal --opensubtitles ${opensubs_login} ${opensubs_passw}"
-
-		# Empty the Trash on all mounted volumes and the main HDD.
-		# Also, clear Apple’s System Logs to improve shell startup speed.
-		# Finally, clear download history from quarantine. https://mths.be/bum
-		alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl; sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'delete from LSQuarantineEvent'"
-
-		alias k=kubectl
 	fi
-fi 
+fi
+
+# -------------------------------------
+# Macos Dedicated Commands
+
+if [ "$MACOS" ]; then
+	# cd to iCloud Drive
+	alias home="cd ~/iCloudDrive/"
+	# Flush Directory Service cache
+	alias flushdns="dscacheutil -flushcache && killall -HUP mDNSResponder"
+	# Restart CoreAudio
+	alias restart_coreaudio="sudo pkill coreaudiod"
+	# Empty the Trash on all mounted volumes and the main HDD.
+	# Also, clear Apple’s System Logs to improve shell startup speed.
+	# Finally, clear download history from quarantine. https://mths.be/bum
+	alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl; sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'delete from LSQuarantineEvent'"
+	# Get macOS Software Updates & Homebrew packages
+	alias update='brew update; brew upgrade; brew cleanup; sudo softwareupdate -i -a'
+fi
+
+# -------------------------------------
+# Common Linux + Macos Aliases
+
+if [ "$MACOS" ] || [ "$LINUX" ]; then
+	# Get week number
+	alias week='date +%V'
+	# Update dotfiles
+	alias update_dotfiles="current_dir=$(pwd) && cd ${dotfiles_dir} && git pull && zsh install.sh && cd ${current_dir}"
+fi
