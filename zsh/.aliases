@@ -5,27 +5,35 @@ source ${HOME}/.functions
 determine_if_codespaces_or_macos_or_linux
 determine_dotfiles_dir
 
+SUBLIMINAL_DETECTED=$(command -v subliminal)
+KUBECTL_DETECTED=$(command -v kubectl)
+EXA_DETECTED=$(command -v exa)
+BAT_DETECTED=$(command -v bat)
+FD_DETECTED=$(command -v fd)
+NCDU_DETECTED=$(command -v ncdu)
+HTOP_DETECTED=$(command -v htop)
+BTOP_DETECTED=$(command -v btop)
 
-if [ ! command -v subliminal &> /dev/null ]; then
+if [ ! -z "$SUBLIMINAL_DETECTED" ]; then
 	alias subliminal="subliminal --opensubtitles ${opensubs_login} ${opensubs_passw}"
 fi 
 
-if [ ! command -v kubectl &> /dev/null ]; then
+if [ ! -z "$KUBECTL_DETECTED" ]; then
 	alias k="kubectl"
 fi
 
 # -------------------------------------
 # Exa / ls / ll / ld ...
 
-if [ ! command -v exa &> /dev/null ]; then
+if [ ! -z "$EXA_DETECTED" ]; then
 	alias ls="exa -a --icons"
 	alias ll="exa -lagh --icons"                  # list with info
 	alias lt="exa -a --tree --icons --level=2"  # list with tree level 2
 	alias ltf="exa -a --tree --icons"           # list with tree
 	alias lat="exa -lagh --tree --icons" 
 else
-	alias ls="/usr/bin/ls --color"                   # short, multi-line
-	alias ll="/usr/bin/ls --color -lahg" 
+	alias ls="/bin/ls --color"                   # short, multi-line
+	alias ll="/bin/ls --color -lahg" 
 fi
 
 alias ld="ll"                               # ^^^, NOTE: Trying to move to this for alternate hand commands
@@ -42,12 +50,10 @@ fi
 # -------------------------------------
 # Bat / cat ...
 
-if [ ! command -v bat &> /dev/null ]; then
+if [ ! -z "$BAT_DETECTED" ]; then
 	alias cat='bat --style="header" --paging=never'
 	alias catn='bat --pager "less -RF"'
 	alias batn='bat --pager "less -RF"'
-else
-	alias cat='/usr/bin/cat'
 fi
 
 # -------------------------------------
@@ -61,36 +67,34 @@ alias egrep='egrep --color=auto'
 # -------------------------------------
 # top / htop / btop
 
-if [ ! command -v btop &> /dev/null ]; then
+if [ ! -z "$BTOP_DETECTED" ]; then
 	alias top="btop --utf-force"
 	alias btop="btop --utf-force"
 	alias htop="btop --utf-force"
 else
-	alias top="/usr/bin/top"
-	alias htop="/usr/bin/htop"
+	if [ ! -z "$HTOP_DETECTED" ]; then
+		alias top="htop"
+		alias htop="htop"
+	fi
 fi
 
 # -------------------------------------
 # fd / locate / find
 
-if [ ! command -v fd &> /dev/null ]; then
+if [ ! -z "$FD_DETECTED" ]; then
 	alias locate="fd"
 	alias find="fd"
-else
-	alias locate="/usr/bin/locate"
-	alias find="/usr/bin/find"
 fi
-
 
 # -------------------------------------
 # du / duf / ncdu
 
-if [ ! command -v duf &> /dev/null ]; then
+if [ ! -z "$DUF_DETECTED" ]; then
 	# duf
 	alias df="duf"
 fi
 
-if [ ! command -v ncdu &> /dev/null ]; then
+if [ ! -z "$NCDU_DETECTED" ]; then
 	# ncdu
 	alias du="ncdu"
 fi
