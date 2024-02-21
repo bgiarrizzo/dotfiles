@@ -31,19 +31,9 @@ brew install gnu-sed
 brew install watch
 
 # Install Dev(ops)Stuff
-brew install terraform
-brew install kubernetes-cli
+brew install kubernetes-cli # kubectl
 brew install git-lfs
 brew install git
-brew install helm
-brew install helmfile
-brew install awscli
-brew install --cask conduktor
-brew install --cask google-cloud-sdk
-brew install tig
-brew install commitizen
-brew install k9s
-brew install kdash
 
 # # Install useful stuff
 brew install --cask iterm2
@@ -56,8 +46,6 @@ brew install --cask insomnia
 
 # # Install SSH agent using secure enclave
 brew install --cask secretive
-
-
 
 echo -e "# ------------------------------------------------ \n"
 echo -e "Install Finished\n"

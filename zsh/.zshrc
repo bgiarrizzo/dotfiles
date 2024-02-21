@@ -1,9 +1,19 @@
 #!/usr/bin/env zsh
 
+source ~/.aliases
 source ~/.functions
 
 determine_if_codespaces_or_macos_or_linux
 
+IS_KUBECTL_INSTALLED=$(command -v kubectl)
+IS_DOCKER_INSTALLED=$(command -v docker)
+IS_GCLOUD_CLI_INSTALLED=$(command -v gcloud)
+IS_GITHUB_CLI_INSTALLED=$(command -v gh)
+IS_HELM_INSTALLED=$(command -v helm)
+IS_TERRAFORM_INSTALLED=$(command -v terraform)
+IS_CONFLUENT_CLOUD_CLI_INSTALLED=$(command -v confluent)
+
+# -------------------------------------
 # BASIC CONFIG
 
 if [ "$MACOS" ] || [ "$LINUX" ]; then
@@ -46,7 +56,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-HIST_STAMPS="yyyy/mm/dd"
+HIST_STAMPS="yyyy-mm-dd"
 
 # Without this alias, hist_stamps doesn't work
 alias history='fc -il 1'
@@ -59,70 +69,148 @@ source $ZSH/oh-my-zsh.sh
 # -------------------------------------
 # Paths
 
-if [ "$MACOS" ]; then
-    # If you come from bash you might have to change your $PATH.
-    # export PATH=$HOME/bin:/usr/local/bin:$PATH
+    if [ "$MACOS" ] || [ "$LINUX" ]; then
+        export PATH="$HOME/.bin/:$PATH"
+    fi
 
-    export PATH="$HOME/.bin/:$PATH"
-    export PATH="$(/opt/homebrew/bin/brew --prefix)/bin/:$PATH"
-    
-    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/ruby/bin:$PATH"
+    if [ "$MACOS" ]; then
+        # If you come from bash you might have to change your $PATH.
+        # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/python@3/bin:$PATH"
-    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/python@3.10/bin:$PATH"
-    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/python@3.11/bin:$PATH"
-    
-    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/go@1.17/bin:$PATH"
-    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/go@1.20/bin:$PATH"
+        export PATH="$(/opt/homebrew/bin/brew --prefix)/bin/:$PATH"
+        
+        # Ruby
+        export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/ruby/bin:$PATH"
 
-    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/exa/bin:$PATH"
-    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/bat/bin:$PATH"
-    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/fd/bin:$PATH"
-    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/btop/bin:$PATH"
-    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/ncdu/bin:$PATH"
-    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/duf/bin:$PATH"
-    export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/ssh-copy-id/bin:$PATH"
-fi
+        # Python
+        export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/python@3/bin:$PATH"
+        export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/python@3.10/bin:$PATH"
+        export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/python@3.11/bin:$PATH"
+        export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/python@3.12/bin:$PATH"
+        
+        # Go
+        export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/go@1.16/bin:$PATH"
+        export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/go@1.17/bin:$PATH"
+        export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/go@1.18/bin:$PATH"
+        export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/go@1.19/bin:$PATH"
+        export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/go@1.20/bin:$PATH"
+        export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/go@1.21/bin:$PATH"
+        export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/go@1.22/bin:$PATH"
 
-if [ "$LINUX" ]; then
-    export PATH="$HOME/.bin/:$PATH"
-fi
+        # CLI tools
+        export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/exa/bin:$PATH"
+        export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/bat/bin:$PATH"
+        export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/fd/bin:$PATH"
+        export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/btop/bin:$PATH"
+        export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/ncdu/bin:$PATH"
+        export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/duf/bin:$PATH"
+
+        # SSH
+        export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/ssh-copy-id/bin:$PATH"
+    fi
 
 # -------------------------------------
 # ZSH + useful stuff
 
-if [ "$MACOS" ] || [ "$LINUX" ]; then
-    source ${HOME}/.cli_passwords
+    if [ "$MACOS" ] || [ "$LINUX" ]; then
+        source ${HOME}/.cli_passwords
+
+        if [ "$MACOS" ]; then
+            source "$(/opt/homebrew/bin/brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+            source "$(/opt/homebrew/bin/brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+        fi
+    fi
+
+# -------------------------------------
+# ZSH Plugins
+
+    ZSH_PLUGINS_LIST="git pipenv pip golang"
+
+    if [ "$MACOS" ] || [ "$LINUX" ]; then
+
+        # Use SSH and GPG agent plugins on both Macos and Linux
+        ZSH_PLUGINS_LIST="${ZSH_PLUGINS_LIST} ssh-agent gpg-agent"
+
+        # Use Macos plugin if on Macos
+        if [ "$MACOS" ]; then
+            ZSH_PLUGINS_LIST="${ZSH_PLUGINS_LIST} macos"
+        fi
+
+        # Use Linux plugin if on Linux
+        if [ "$LINUX" ]; then
+            ZSH_PLUGINS_LIST="${ZSH_PLUGINS_LIST} debian"
+        fi
+
+        # If CLI tools are installed, add according plugins to list
+        if [ "$IS_KUBECTL_INSTALLED" ]; then
+            ZSH_PLUGINS_LIST="${ZSH_PLUGINS_LIST} kubectl"
+        fi
+        if [ "$IS_DOCKER_INSTALLED" ]; then
+            ZSH_PLUGINS_LIST="${ZSH_PLUGINS_LIST} docker docker-compose"
+        fi
+        if [ "$IS_GCLOUD_CLI_INSTALLED" ]; then
+            ZSH_PLUGINS_LIST="${ZSH_PLUGINS_LIST} gcloud"
+        fi
+        if [ "$IS_GITHUB_CLI_INSTALLED" ]; then
+            ZSH_PLUGINS_LIST="${ZSH_PLUGINS_LIST} gh"
+        fi
+        if [ "$IS_HELM_INSTALLED" ]; then
+            ZSH_PLUGINS_LIST="${ZSH_PLUGINS_LIST} helm"
+        fi
+        if [ "$IS_TERRAFORM_INSTALLED" ]; then
+            ZSH_PLUGINS_LIST="${ZSH_PLUGINS_LIST} terraform"
+        fi
+    else
+        ZSH_PLUGINS_LIST="${ZSH_PLUGINS_LIST} gh"
+    fi 
 
     # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
     # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
     # Example format: plugins=(rails git textmate ruby lighthouse)
     # Add wisely, as too many plugins slow down shell startup.
-    plugins=(ssh-agent gpg-agent git pipenv)
-
-    if [ "$MACOS" ]; then
-        source "$(/opt/homebrew/bin/brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-        source "$(/opt/homebrew/bin/brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
-    fi
-fi
+    plugins=(${ZSH_PLUGINS_LIST})
 
 # -------------------------------------
 # Google Cloud Platform
 
-if [ "$MACOS" ] || [ "$LINUX" ]; then
-    export USE_GKE_GCLOUD_AUTH_PLUGIN=True
-    if [ "$MACOS" ]; then
-        # source "$(/opt/homebrew/bin/brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
-        source "$(/opt/homebrew/bin/brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
+    if [ "$IS_GCLOUD_CLI_INSTALLED" ]; then
+        export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+        if [ "$MACOS" ]; then
+            # source "$(/opt/homebrew/bin/brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
+            source "$(/opt/homebrew/bin/brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
+        fi
     fi
-fi
 
 # -------------------------------------
-# Kubectl
+# Autocompletion 
 
-if [ "$MACOS" ] || [ "$LINUX" ]; then
-    source <(kubectl completion zsh)
-    complete -o default -F __start_kubectl k
-fi
+    # -------------------------------------
+    # Kubectl
 
-source ~/.aliases
+    if [ "$IS_KUBECTL_INSTALLED" ]; then
+        source <(kubectl completion zsh)
+        complete -o default -F __start_kubectl k
+    fi
+
+    # -------------------------------------
+    # Helm
+
+    if [ "$IS_HELM_INSTALLED" ]; then
+        source <(helm completion zsh)
+    fi
+
+    # -------------------------------------
+    # Github CLI
+
+    if [ "$IS_GITHUB_CLI_INSTALLED" ]; then
+        source <(gh completion -s zsh)
+    fi
+
+    # -------------------------------------
+    # Confluent Cloud CLI
+
+    if [ "$IS_CONFLUENT_CLOUD_CLI_INSTALLED" ]; then
+        source <(confluent completion zsh)
+    fi
+
+# -------------------------------------

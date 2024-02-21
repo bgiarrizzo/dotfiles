@@ -1,3 +1,12 @@
+[user]
+    name = Bruno Giarrizzo
+    email = b.giarrizzo@cyberlife.sh
+	signingkey = 52C3FDDF41F44BE9
+
+[commit]
+    # https://help.github.com/articles/signing-commits-using-gpg/
+    gpgsign = true
+
 [alias]
     undo = reset --soft HEAD^
     # View abbreviated SHA, description, and history graph of the latest 20 commits.
@@ -42,6 +51,7 @@
     whoami = config user.email
     # Use conventional commits.
     commitz = cz c
+
 
 [apply]
     # Detect whitespace errors when applying a patch.
@@ -90,9 +100,7 @@
     changed = green
     untracked = cyan
 
-[commit]
-    # https://help.github.com/articles/signing-commits-using-gpg/
-    #gpgsign = true
+
 
 [diff]
     # Detect copies as well as renames.
@@ -137,9 +145,6 @@
 [init]
     defaultBranch = main
 
-[user]
-    name = Bruno Giarrizzo
-    email = b.giarrizzo@cyberlife.sh
 [pull]
     rebase = false
 
