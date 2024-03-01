@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 determine_if_codespaces_or_macos_or_linux() {
-    if [ ! -z "$CODESPACES" ]; then
+    if [ ! -z "$CODESPACES" ] || [ ! -z "$REMOTE_CONTAINERS"]; then
         CODESPACE=true
     elif [[ "$(uname)" == "Darwin" ]]; then
         MACOS=true
