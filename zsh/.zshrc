@@ -112,9 +112,11 @@ source $ZSH/oh-my-zsh.sh
 # -------------------------------------
 # ZSH + useful stuff
 
-    if [ "$MACOS" ] || [ "$LINUX" ]; then
+    if [ -z "$CODESPACE" ]; then
         source ${HOME}/.cli_passwords
+    fi
 
+    if [ "$MACOS" ] || [ "$LINUX" ]; then
         if [ "$MACOS" ]; then
             source "$(/opt/homebrew/bin/brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
             source "$(/opt/homebrew/bin/brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
