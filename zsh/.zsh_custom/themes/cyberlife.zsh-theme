@@ -4,7 +4,7 @@ else
     echo "-----> .functions not found"
     echo "-----> Exiting"
     exit
-fi
+fi;
 
 determine_if_codespaces_or_macos_or_linux
 
@@ -20,7 +20,7 @@ __zsh_prompt() {
     else
         prompt_username="%n"
         PROMPT="%{$fg[green]%}${prompt_username}%{$reset_color%} @ %{$fg[cyan]%}%m%{$reset_color%} %(?:%{$reset_color%}➜ :%{$fg_bold[red]%}➜ )" # User/exit code arrow
-    fi
+    fi;
 
     PROMPT+='%{$fg_bold[blue]%}%(5~|%-1~/…/%3~|%4~)%{$reset_color%} ' # cwd
     PROMPT+='$([ "$(git config --get codespaces-theme.hide-status 2>/dev/null)" != 1 ] && git_prompt_info)' # Git status
