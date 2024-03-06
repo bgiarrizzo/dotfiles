@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 
-if [ -e "${HOME}/.functions" ]; then
-    source ${HOME}/.functions
+PWD=$(pwd)
+
+if [ -e "${PWD}/zsh/.functions" ]; then
+    echo "-----> ${PWD}/zsh/.functions found"
+    source ${PWD}/zsh/.functions
 else
-    echo "-----> .functions not found"
+    echo "-----> ${PWD}/zsh/.functions not found"
     echo "-----> Exiting"
     exit
 fi

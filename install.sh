@@ -6,7 +6,17 @@
 # or link the files to the home directory on MacOS or Linux
 #
 
-source ./zsh/.functions
+
+PWD=$(pwd)
+
+if [ -e "${PWD}/zsh/.functions" ]; then
+    echo "-----> ${PWD}/zsh/.functions found"
+    source ${PWD}/zsh/.functions
+else
+    echo "-----> ${PWD}/zsh/.functions not found"
+    echo "-----> Exiting"
+    exit
+fi
 
 determine_if_codespaces_or_macos_or_linux
 determine_dotfiles_dir

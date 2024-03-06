@@ -1,4 +1,10 @@
-source ${HOME}/.functions
+if [ -e "${HOME}/.functions" ]; then
+    source ${HOME}/.functions
+else
+    echo "-----> .functions not found"
+    echo "-----> Exiting"
+    exit
+fi
 
 determine_if_codespaces_or_macos_or_linux
 

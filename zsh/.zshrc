@@ -1,7 +1,20 @@
 #!/usr/bin/env zsh
 
-source ~/.aliases
-source ~/.functions
+if [ -e "${HOME}/.aliases" ]; then
+    source ${HOME}/.aliases
+else
+    echo "-----> .aliases not found"
+    echo "-----> Exiting"
+    exit
+fi
+
+if [ -e "${HOME}/.functions" ]; then
+    source ${HOME}/.functions
+else
+    echo "-----> .functions not found"
+    echo "-----> Exiting"
+    exit
+fi
 
 determine_if_codespaces_or_macos_or_linux
 
@@ -64,7 +77,13 @@ alias history='fc -il 1'
 # Without this alias git commit with gpg doesn't work
 export GPG_TTY=$(tty)
 
-source $ZSH/oh-my-zsh.sh
+if [ -e "${ZSH}/oh-my-zsh.sh" ]; then
+    source ${ZSH}/oh-my-zsh.sh
+else
+    echo "-----> ${ZSH}/oh-my-zsh.sh not found"
+    echo "-----> Exiting"
+    exit
+fi
 
 # -------------------------------------
 # Paths
@@ -113,7 +132,12 @@ source $ZSH/oh-my-zsh.sh
 # ZSH + useful stuff
 
     if [ -z "$CODESPACE" ]; then
-        source ${HOME}/.cli_passwords
+        if [ -e "${HOME}/.cli_passwords" ]; then
+            source ${HOME}/.cli_passwords
+        else
+            echo "-----> ${HOME}/.cli_passwords not found"
+            echo "-----> Skipping"
+        fi
     fi
 
     if [ "$MACOS" ] || [ "$LINUX" ]; then
