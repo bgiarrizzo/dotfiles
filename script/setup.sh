@@ -9,7 +9,7 @@ else
     echo "-----> ${PWD}/zsh/.functions not found"
     echo "-----> Exiting"
     exit
-fi
+fi;
 
 determine_if_codespaces_or_macos_or_linux
 determine_dotfiles_dir
@@ -19,14 +19,14 @@ if [ "$CODESPACE" ]; then
     echo "Working in codespaces no need for brew or zsh, exiting ..."
     echo -e "\n # ------------------------------------------------------------------- #"
     exit
-fi
+fi;
 
 if [ "$MACOS" ]; then 
     echo -e "\n # ------------------------------------------------------------------- #"
     echo "installing brew ..."
     bash ${dotfiles_dir}/script/macos/brew.sh
     echo -e "\n # ------------------------------------------------------------------- #"
-fi
+fi;
 
 # Brew is required to install zsh
 echo -e "\n # ------------------------------------------------------------------- #"

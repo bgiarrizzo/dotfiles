@@ -16,7 +16,7 @@ else
     echo "-----> ${PWD}/zsh/.functions not found"
     echo "-----> Exiting"
     exit
-fi
+fi;
 
 determine_if_codespaces_or_macos_or_linux
 determine_dotfiles_dir
@@ -28,7 +28,7 @@ copy_file() {
     if [ ! -e "$link" ]; then
         echo "-----> Copying ${source} --> ${target}"
         #cp -R ${source} ${target}
-    fi
+    fi;
 }
 
 erase_original_file() {
@@ -39,7 +39,7 @@ erase_original_file() {
     if [ -e "$target" ]; then
         echo "-----> Erasing file ${target}"
         rm -rf ${target}
-    fi
+    fi;
 }
 
 link_file() {
@@ -49,7 +49,7 @@ link_file() {
     if [ ! -e "$link" ]; then
         echo "-----> Linking ${source} --> ${target}"
         ln -s ${source} ${target}
-    fi
+    fi;
 }
 
 echo "Copy/link files from ${dotfiles_dir} into ${HOME} :"
@@ -64,7 +64,7 @@ for name in zsh wget vim git curl cheat; do
         else
             erase_original_file ${target}
             link_file ${dotfiles_dir}/${name}/$file ${target}
-        fi
+        fi;
 
     done
 done

@@ -9,9 +9,9 @@ if [ -z /opt/homebrew/bin/brew ]; then
         echo "line already exists"
     else
         echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' > ~/.zprofile
-    fi
+    fi;
     eval "$(/opt/homebrew/bin/brew shellenv)"
-fi
+fi;
 
 # Install command-line tools using Homebrew.
 

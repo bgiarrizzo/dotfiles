@@ -6,7 +6,7 @@ else
     echo "-----> .functions not found"
     echo "-----> Exiting"
     exit
-fi
+fi;
 
 determine_if_codespaces_or_macos_or_linux
 determine_dotfiles_dir
@@ -22,11 +22,11 @@ BTOP_DETECTED=$(command -v btop)
 
 if [ ! -z "$SUBLIMINAL_DETECTED" ]; then
 	alias subliminal="subliminal --opensubtitles ${opensubs_login} ${opensubs_passw}"
-fi 
+fi;
 
 if [ ! -z "$KUBECTL_DETECTED" ]; then
 	alias k="kubectl"
-fi
+fi;
 
 # -------------------------------------
 # Exa / ls / ll / ld ...
@@ -40,7 +40,7 @@ if [ ! -z "$EXA_DETECTED" ]; then
 else
 	alias ls="/bin/ls --color"                   # short, multi-line
 	alias ll="/bin/ls --color -lahg" 
-fi
+fi;
 
 alias ld="ll"                               # ^^^, NOTE: Trying to move to this for alternate hand commands
 
@@ -51,7 +51,7 @@ if ls --color > /dev/null 2>&1; then # GNU `ls`
 else # macOS `ls`
 	colorflag="-G"
 	export LSCOLORS='BxBxhxDxfxhxhxhxhxcxcx'
-fi
+fi;
 
 # -------------------------------------
 # Bat / cat ...
@@ -60,7 +60,7 @@ if [ ! -z "$BAT_DETECTED" ]; then
 	alias cat='bat --style="header" --paging=never'
 	alias catn='bat --pager "less -RF"'
 	alias batn='bat --pager "less -RF"'
-fi
+fi;
 
 # -------------------------------------
 # Grep
@@ -81,8 +81,8 @@ else
 	if [ ! -z "$HTOP_DETECTED" ]; then
 		alias top="htop"
 		alias htop="htop"
-	fi
-fi
+	fi;
+fi;
 
 # -------------------------------------
 # fd / locate / find
@@ -90,7 +90,7 @@ fi
 if [ ! -z "$FD_DETECTED" ]; then
 	alias locate="fd"
 	alias find="fd"
-fi
+fi;
 
 # -------------------------------------
 # du / duf / ncdu
@@ -98,12 +98,12 @@ fi
 if [ ! -z "$DUF_DETECTED" ]; then
 	# duf
 	alias df="duf"
-fi
+fi;
 
 if [ ! -z "$NCDU_DETECTED" ]; then
 	# ncdu
 	alias du="ncdu"
-fi
+fi;
 
 # -------------------------------------
 # Network / IP / DNS
@@ -116,8 +116,8 @@ if [ "$MACOS" ] || [ "$LINUX" ]; then
 		alias localip="ipconfig getifaddr en0"
 		# Show active network interfaces
 		alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'"
-	fi
-fi
+	fi;
+fi;
 
 # -------------------------------------
 # Macos Dedicated Commands
@@ -135,7 +135,7 @@ if [ "$MACOS" ]; then
 	alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl; sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'delete from LSQuarantineEvent'"
 	# Get macOS Software Updates & Homebrew packages
 	alias update='brew update; brew upgrade; brew cleanup; sudo softwareupdate -i -a'
-fi
+fi;
 
 # -------------------------------------
 # Common Linux + Macos Aliases
@@ -145,4 +145,4 @@ if [ "$MACOS" ] || [ "$LINUX" ]; then
 	alias week='date +%V'
 	# Update dotfiles
 	alias update_dotfiles="current_dir=$(pwd) && cd ${dotfiles_dir} && git pull && zsh install.sh && cd ${current_dir}"
-fi
+fi;

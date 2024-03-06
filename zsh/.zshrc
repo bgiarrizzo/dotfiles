@@ -6,7 +6,7 @@ else
     echo "-----> .aliases not found"
     echo "-----> Exiting"
     exit
-fi
+fi;
 
 if [ -e "${HOME}/.functions" ]; then
     source ${HOME}/.functions
@@ -14,7 +14,7 @@ else
     echo "-----> .functions not found"
     echo "-----> Exiting"
     exit
-fi
+fi;
 
 determine_if_codespaces_or_macos_or_linux
 
@@ -36,7 +36,7 @@ if [ "$MACOS" ] || [ "$LINUX" ]; then
     export LC_COLLATE=fr_FR.UTF-8
     export LC_MONETARY=fr_FR.UTF-8
     export LC_MESSAGES=fr_FR.UTF-8
-fi
+fi;
 
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
@@ -83,14 +83,14 @@ else
     echo "-----> ${ZSH}/oh-my-zsh.sh not found"
     echo "-----> Exiting"
     exit
-fi
+fi;
 
 # -------------------------------------
 # Paths
 
     if [ "$MACOS" ] || [ "$LINUX" ]; then
         export PATH="$HOME/.bin/:$PATH"
-    fi
+    fi;
 
     if [ "$MACOS" ]; then
         # If you come from bash you might have to change your $PATH.
@@ -126,7 +126,7 @@ fi
 
         # SSH
         export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/ssh-copy-id/bin:$PATH"
-    fi
+    fi;
 
 # -------------------------------------
 # ZSH + useful stuff
@@ -137,15 +137,15 @@ fi
         else
             echo "-----> ${HOME}/.cli_passwords not found"
             echo "-----> Skipping"
-        fi
-    fi
+        fi;
+    fi;
 
     if [ "$MACOS" ] || [ "$LINUX" ]; then
         if [ "$MACOS" ]; then
             source "$(/opt/homebrew/bin/brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
             source "$(/opt/homebrew/bin/brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
-        fi
-    fi
+        fi;
+    fi;
 
 # -------------------------------------
 # ZSH Plugins
@@ -160,35 +160,35 @@ fi
         # Use Macos plugin if on Macos
         if [ "$MACOS" ]; then
             ZSH_PLUGINS_LIST="${ZSH_PLUGINS_LIST} macos"
-        fi
+        fi;
 
         # Use Linux plugin if on Linux
         if [ "$LINUX" ]; then
             ZSH_PLUGINS_LIST="${ZSH_PLUGINS_LIST} debian"
-        fi
+        fi;
 
         # If CLI tools are installed, add according plugins to list
         if [ "$IS_KUBECTL_INSTALLED" ]; then
             ZSH_PLUGINS_LIST="${ZSH_PLUGINS_LIST} kubectl"
-        fi
+        fi;
         if [ "$IS_DOCKER_INSTALLED" ]; then
             ZSH_PLUGINS_LIST="${ZSH_PLUGINS_LIST} docker docker-compose"
-        fi
+        fi;
         if [ "$IS_GCLOUD_CLI_INSTALLED" ]; then
             ZSH_PLUGINS_LIST="${ZSH_PLUGINS_LIST} gcloud"
-        fi
+        fi;
         if [ "$IS_GITHUB_CLI_INSTALLED" ]; then
             ZSH_PLUGINS_LIST="${ZSH_PLUGINS_LIST} gh"
-        fi
+        fi;
         if [ "$IS_HELM_INSTALLED" ]; then
             ZSH_PLUGINS_LIST="${ZSH_PLUGINS_LIST} helm"
-        fi
+        fi;
         if [ "$IS_TERRAFORM_INSTALLED" ]; then
             ZSH_PLUGINS_LIST="${ZSH_PLUGINS_LIST} terraform"
-        fi
+        fi;
     else
         ZSH_PLUGINS_LIST="${ZSH_PLUGINS_LIST} gh"
-    fi 
+    fi;
 
     # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
     # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -204,8 +204,8 @@ fi
         if [ "$MACOS" ]; then
             # source "$(/opt/homebrew/bin/brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
             source "$(/opt/homebrew/bin/brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
-        fi
-    fi
+        fi;
+    fi;
 
 # -------------------------------------
 # Autocompletion 
@@ -216,27 +216,27 @@ fi
     if [ "$IS_KUBECTL_INSTALLED" ]; then
         source <(kubectl completion zsh)
         complete -o default -F __start_kubectl k
-    fi
+    fi;
 
     # -------------------------------------
     # Helm
 
     if [ "$IS_HELM_INSTALLED" ]; then
         source <(helm completion zsh)
-    fi
+    fi;
 
     # -------------------------------------
     # Github CLI
 
     if [ "$IS_GITHUB_CLI_INSTALLED" ]; then
         source <(gh completion -s zsh)
-    fi
+    fi;
 
     # -------------------------------------
     # Confluent Cloud CLI
 
     if [ "$IS_CONFLUENT_CLOUD_CLI_INSTALLED" ]; then
         source <(confluent completion zsh)
-    fi
+    fi;
 
 # -------------------------------------

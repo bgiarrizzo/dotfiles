@@ -7,7 +7,7 @@ determine_if_codespaces_or_macos_or_linux() {
         MACOS=true
     else
         LINUX=true
-    fi
+    fi;
 }
 
 determine_dotfiles_dir() {
@@ -22,7 +22,7 @@ determine_dotfiles_dir() {
             dotfiles_dir="${HOME}/dotfiles"
         else
             dotfiles_dir="${HOME}/code/dotfiles"
-        fi
+        fi;
     fi;
 }
 
@@ -37,7 +37,7 @@ function fs() {
 		local arg=-sbh;
 	else
 		local arg=-sh;
-	fi
+	fi;
 	if [[ -n "$@" ]]; then
 		du $arg -- "$@";
 	else
