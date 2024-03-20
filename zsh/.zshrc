@@ -202,7 +202,7 @@ fi;
     if [ "$IS_GCLOUD_CLI_INSTALLED" ]; then
         export USE_GKE_GCLOUD_AUTH_PLUGIN=True
         if [ "$MACOS" ]; then
-            # source "$(/opt/homebrew/bin/brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
+            source "$(/opt/homebrew/bin/brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
             source "$(/opt/homebrew/bin/brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
         fi;
     fi;
@@ -240,3 +240,11 @@ fi;
     fi;
 
 # -------------------------------------
+# Work Stuff
+    
+    if [ -e "${HOME}/.workrelated" ]; then
+        source ${HOME}/.workrelated
+    else
+        echo "-----> .workrelated not found"
+        echo "-----> Skipping"
+    fi;
