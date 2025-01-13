@@ -25,28 +25,24 @@ copy_file() {
     source=$1
     target=$2
 
-    if [ ! -e "$link" ]; then
+    if [ ! -e "${link}" ]; then
         echo "-----> Copying ${source} --> ${target}"
-        #cp -R ${source} ${target}
+        cp -R ${source} ${target}
     fi;
 }
 
 erase_original_file() {
     target=$1
 
-    # if target is a file, erase it
-    # if target is a symlink, do nothing
-    if [ -e "$target" ]; then
-        echo "-----> Erasing file ${target}"
-        rm -rf ${target}
-    fi;
+    echo "-----> Erasing file ${target}"
+    rm -rf ${target}
 }
 
 link_file() {
     source=$1
     target=$2
 
-    if [ ! -e "$link" ]; then
+    if [ ! -e "${link}" ]; then
         echo "-----> Linking ${source} --> ${target}"
         ln -s ${source} ${target}
     fi;
@@ -54,19 +50,31 @@ link_file() {
 
 echo "Copy/link files from ${dotfiles_dir} into ${HOME} :"
 
-for name in zsh wget vim git curl cheat; do
+for name in cheat curl git mutt vim wget zsh; do
     for file in $(/bin/ls -A ${dotfiles_dir}/${name}/); do
+        source="${dotfiles_dir}/${name}/${file}"
+        target="${HOME}/$(basename ${file})"
 
-        target="$HOME/$(basename $file)"
-
-        if [ "$CODESPACE" ]; then
-            copy_file ${dotfiles_dir}/${name}/$file ${target}
+        if [ "${CODESPACE}" ]; then
+            copy_file ${source} ${target}
         else
             erase_original_file ${target}
-            link_file ${dotfiles_dir}/${name}/$file ${target}
+            link_file ${source} ${target}
         fi;
-
     done
+done
+
+for file in $(/bin/ls -A ${dotfiles_dir}/config/); do
+    source="${dotfiles_dir}/config/${file}"
+    target="${HOME}/.config/$(basename ${file})"
+
+    if [ "${CODESPACE}" ]; then
+        #echo "-----> Copying ${source} --> ${target}"
+        copy_file ${source} ${target}
+    else
+        erase_original_file ${target}
+        link_file ${source} ${target}
+    fi;
 done
 
 echo "-----> Done"

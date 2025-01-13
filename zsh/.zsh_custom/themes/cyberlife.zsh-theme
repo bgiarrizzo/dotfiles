@@ -14,7 +14,7 @@ NEWLINE=$'\n'
 __zsh_prompt() {
     local prompt_username
 
-    if [ "$CODESPACE" ]; then
+    if [ "${CODESPACE}" ]; then
         prompt_username="@${GITHUB_USER}"
         PROMPT="%{$fg[green]%}${prompt_username}%{$reset_color%} %(?:%{$reset_color%}➜ :%{$fg_bold[red]%}➜ )" # User/exit code arrow
     else

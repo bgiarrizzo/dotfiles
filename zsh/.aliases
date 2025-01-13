@@ -11,32 +11,27 @@ fi;
 determine_if_codespaces_or_macos_or_linux
 determine_dotfiles_dir
 
-SUBLIMINAL_DETECTED=$(command -v subliminal)
 KUBECTL_DETECTED=$(command -v kubectl)
-EXA_DETECTED=$(command -v exa)
+EZA_DETECTED=$(command -v eza)
 BAT_DETECTED=$(command -v bat)
 FD_DETECTED=$(command -v fd)
 NCDU_DETECTED=$(command -v ncdu)
 HTOP_DETECTED=$(command -v htop)
 BTOP_DETECTED=$(command -v btop)
 
-if [ ! -z "$SUBLIMINAL_DETECTED" ]; then
-	alias subliminal="subliminal --opensubtitles ${opensubs_login} ${opensubs_passw}"
-fi;
-
-if [ ! -z "$KUBECTL_DETECTED" ]; then
+if [ ! -z "${KUBECTL_DETECTED}" ]; then
 	alias k="kubectl"
 fi;
 
 # -------------------------------------
-# Exa / ls / ll / ld ...
+# eza / ls / ll / ld ...
 
-if [ ! -z "$EXA_DETECTED" ]; then
-	alias ls="exa -a --icons"
-	alias ll="exa -lagh --icons"                  # list with info
-	alias lt="exa -a --tree --icons --level=2"  # list with tree level 2
-	alias ltf="exa -a --tree --icons"           # list with tree
-	alias lat="exa -lagh --tree --icons" 
+if [ ! -z "${EZA_DETECTED}" ]; then
+	alias ls="eza -a --icons"
+	alias ll="eza -lagh --icons"                  # list with info
+	alias lt="eza -a --tree --icons --level=2"  # list with tree level 2
+	alias ltf="eza -a --tree --icons"           # list with tree
+	alias lat="eza -lagh --tree --icons" 
 else
 	alias ls="/bin/ls --color"                   # short, multi-line
 	alias ll="/bin/ls --color -lahg" 
@@ -56,7 +51,7 @@ fi;
 # -------------------------------------
 # Bat / cat ...
 
-if [ ! -z "$BAT_DETECTED" ]; then
+if [ ! -z "${BAT_DETECTED}" ]; then
 	alias cat='bat --style="header" --paging=never'
 	alias catn='bat --pager "less -RF"'
 	alias batn='bat --pager "less -RF"'
@@ -73,12 +68,12 @@ alias egrep='egrep --color=auto'
 # -------------------------------------
 # top / htop / btop
 
-if [ ! -z "$BTOP_DETECTED" ]; then
+if [ ! -z "${BTOP_DETECTED}" ]; then
 	alias top="btop --utf-force"
 	alias btop="btop --utf-force"
 	alias htop="btop --utf-force"
 else
-	if [ ! -z "$HTOP_DETECTED" ]; then
+	if [ ! -z "${HTOP_DETECTED}" ]; then
 		alias top="htop"
 		alias htop="htop"
 	fi;
@@ -87,20 +82,21 @@ fi;
 # -------------------------------------
 # fd / locate / find
 
-if [ ! -z "$FD_DETECTED" ]; then
-	alias locate="fd"
-	alias find="fd"
+if [ "${MACOS}" ]; then
+	if [ ! -z "${FD_DETECTED}" ]; then
+		alias find="fd"
+	fi;
 fi;
 
 # -------------------------------------
 # du / duf / ncdu
 
-if [ ! -z "$DUF_DETECTED" ]; then
+if [ ! -z "${DUF_DETECTED}" ]; then
 	# duf
 	alias df="duf"
 fi;
 
-if [ ! -z "$NCDU_DETECTED" ]; then
+if [ ! -z "${NCDU_DETECTED}" ]; then
 	# ncdu
 	alias du="ncdu"
 fi;
@@ -108,10 +104,10 @@ fi;
 # -------------------------------------
 # Network / IP / DNS
 
-if [ "$MACOS" ] || [ "$LINUX" ]; then
+if [ "${MACOS}" ] || [ "${LINUX}" ]; then
 	# List of local IP addresses
 	alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
-	if [ "$MACOS" ]; then 
+	if [ "${MACOS}" ]; then 
 		# Get local IP address
 		alias localip="ipconfig getifaddr en0"
 		# Show active network interfaces
@@ -122,7 +118,7 @@ fi;
 # -------------------------------------
 # Macos Dedicated Commands
 
-if [ "$MACOS" ]; then
+if [ "${MACOS}" ]; then
 	# cd to iCloud Drive
 	alias home="cd ~/iCloudDrive/"
 	# Flush Directory Service cache
@@ -140,7 +136,7 @@ fi;
 # -------------------------------------
 # Common Linux + Macos Aliases
 
-if [ "$MACOS" ] || [ "$LINUX" ]; then
+if [ "${MACOS}" ] || [ "${LINUX}" ]; then
 	# Get week number
 	alias week='date +%V'
 	# Update dotfiles

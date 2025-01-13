@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 determine_if_codespaces_or_macos_or_linux() {
-    if [ -n "$CODESPACES" ] || [ -n "$REMOTE_CONTAINERS" ]; then
+    if [ -n "${CODESPACE}" ] || [ -n "$REMOTE_CONTAINERS" ]; then
         CODESPACE=true
     elif [ "$(uname)" = "Darwin" ]; then
         MACOS=true
@@ -12,12 +12,12 @@ determine_if_codespaces_or_macos_or_linux() {
 
 determine_dotfiles_dir() {
     # In any case, in codespaces, dotiles are stored in this location
-    if [ "$CODESPACE" ]; then
+    if [ "${CODESPACE}" ]; then
         dotfiles_dir="/workspaces/.codespaces/.persistedshare/dotfiles"
     fi;
 
     # If Macos Or linux, check where the dotfiles are stored
-    if [ "$MACOS" ] || [ "$LINUX" ]; then
+    if [ "${MACOS}" ] || [ "${LINUX}" ]; then
         if [ -d "${HOME}/dotfiles" ]; then
             dotfiles_dir="${HOME}/dotfiles"
         else
@@ -86,9 +86,9 @@ function extract {
                     *.bz2)       bunzip2 ./"$n"                 ;;
                     *.cbr|*.rar) unrar x -ad ./"$n"             ;;
                     *.gz)        gunzip ./"$n"                  ;;
-                    *.cbz|*.epub|*.zip) unzip ./"$n"            ;;
+                    *.cbz|*.epub) unzip ./"$n"                  ;;
                     *.z)         uncompress ./"$n"              ;;
-                    *.7z|*.apk|*.arj|*.cab|*.cb7|*.chm|*.deb|*.dmg|*.iso|*.lzh|*.msi|*.pkg|*.rpm|*.udf|*.wim|*.xar)
+                    *.7z|*.apk|*.arj|*.cab|*.cb7|*.chm|*.deb|*.dmg|*.iso|*.lzh|*.msi|*.pkg|*.rpm|*.udf|*.wim|*.xar|*.zip)
                         7z x ./"$n"                             ;;
                     *.xz)        unxz ./"$n"                    ;;
                     *.exe)       cabextract ./"$n"              ;;
