@@ -1,0 +1,26 @@
+unalternates *
+unmailboxes *
+unmy_hdr *
+
+# Configuration SMTP et IMAP pour iCloud
+set imap_user = "b3o.giarrizzo@icloud.com"
+set from      = "bruno@giarrizzo.fr"
+set imap_pass = "xvko-yqkg-dtza-dfpb"
+set smtp_pass = "xvko-yqkg-dtza-dfpb"
+set folder    = "imaps://b3o.giarrizzo@imap.mail.me.com:993"
+set smtp_url  = "smtps://b3o.giarrizzo@smtp.mail.me.com:587"
+set ssl_starttls = yes
+set ssl_force_tls = yes
+
+# Spécification des dossiers spéciaux
+set spoolfile = "+INBOX"
+set postponed = "+Drafts"
+set record    = "+Sent Messages"
+set trash     = "+Trash"
+
+set imap_pipeline_depth = 0
+
+# Vérification périodique des nouveaux messages dans ces boîtes et affichage dans la barre latérale
+mailboxes +INBOX +Drafts +"Sent Messages" +Archive +Trash +Junk
+
+# vim: filetype=muttrc

@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-# -------------------------------------
-# Vault
 
-if [ "$MACOS" ]; then
-    export VAULT_ADDR=https://vault.factory.adeo.cloud
-    export VAULT_NAMESPACE=adeo/data-streaming-platform
-fi;
+# -------------------------------------
+# Aliases 

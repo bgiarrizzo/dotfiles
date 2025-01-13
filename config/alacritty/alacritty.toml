@@ -1,0 +1,8 @@
+[window]
+
+padding.x = 5
+padding.y = 5
+
+[font]
+size = 8.0
+normal = {family = "Terminess Nerd Font", style = "Regular"}

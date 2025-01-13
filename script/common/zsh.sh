@@ -13,14 +13,14 @@ fi;
 
 determine_if_codespaces_or_macos_or_linux
 
-if [ "$MACOS" ]; then
+if [ "${MACOS}" ]; then
     # Install a modern shell.
     brew install zsh
     brew install zsh-syntax-highlighting
     brew install zsh-autosuggestions
 fi;
 
-if [ "$LINUX" ]; then
+if [ "${LINUX}" ]; then
     # Install ZSH
     apt install zsh -y
     apt install zsh-autosuggestions -y

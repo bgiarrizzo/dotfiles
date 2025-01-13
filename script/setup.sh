@@ -14,22 +14,35 @@ fi;
 determine_if_codespaces_or_macos_or_linux
 determine_dotfiles_dir
 
-if [ "$CODESPACE" ]; then
+if [ "${CODESPACE}" ]; then
     echo -e "\n # ------------------------------------------------------------------- #"
-    echo "Working in codespaces no need for brew or zsh, exiting ..."
+    echo "Working in codespaces, system ready, exiting ..."
     echo -e "\n # ------------------------------------------------------------------- #"
     exit
 fi;
 
-if [ "$MACOS" ]; then 
+if [ "${MACOS}" ]; then
     echo -e "\n # ------------------------------------------------------------------- #"
-    echo "installing brew ..."
+    echo "Installing brew & Prepare System ..."
     bash ${dotfiles_dir}/script/macos/brew.sh
+    echo -e "\n # ------------------------------------------------------------------- #"
+    echo "Installing software ..."
+    bash ${dotfiles_dir}/script/macos/software.sh
+    echo -e "\n # ------------------------------------------------------------------- #"
+fi;
+
+if [ "${LINUX}" ]; then
+    echo -e "\n # ------------------------------------------------------------------- #"
+    echo "Prepare System ..."
+    bash ${dotfiles_dir}/script/linux/setup.sh
+    echo -e "\n # ------------------------------------------------------------------- #"
+    echo "Installing software ..."
+    bash ${dotfiles_dir}/script/linux/software.sh
     echo -e "\n # ------------------------------------------------------------------- #"
 fi;
 
 # Brew is required to install zsh
 echo -e "\n # ------------------------------------------------------------------- #"
-echo "install zsh ..."
+echo "Installing ZSH ..."
 bash ${dotfiles_dir}/script/common/zsh.sh
 echo -e "\n # ------------------------------------------------------------------- #"
