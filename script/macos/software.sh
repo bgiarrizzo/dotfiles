@@ -18,7 +18,7 @@ brew install tree
 
 brew install --cask rar
 brew install p7zip
-brew install cheat
+# brew install cheat
 brew install eza
 brew install fd
 brew install bat
@@ -29,7 +29,7 @@ brew install gnu-sed
 brew install watch
 
 # Install Dev(ops)Stuff
-brew install kubernetes-cli # kubectl
+# brew install kubernetes-cli # kubectl
 brew install git-lfs
 brew install git
 
