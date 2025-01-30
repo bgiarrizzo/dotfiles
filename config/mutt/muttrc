@@ -1,0 +1,80 @@
+# user defined variables
+# -----------------------------------------------------------------------------
+
+set my_folder = "~/.config/mutt"
+
+# general smtp stuff / email sending
+# -----------------------------------------------------------------------------
+
+set realname      = 'Bruno Giarrizzo'
+set ssl_starttls  = yes
+set ssl_force_tls = yes
+set use_from      = yes
+set reverse_name  = yes
+set edit_headers  = yes
+set text_flowed   = yes
+set send_charset  = "us-ascii:utf-8"
+set editor        = '$EDITOR +/^$ +nohlsearch' # Jump past header
+
+# if desired generate a multipart/alternative container from markdown
+set send_multipart_alternative        = ask-no
+set send_multipart_alternative_filter = "python $my_samples/markdown2html"
+
+# general imap stuff / email fetching
+# -----------------------------------------------------------------------------
+
+# If cache directories are folders, Mutt will create folders for each account,
+# which may speeds things up even more
+set header_cache     = ~/.cache/mutt
+set message_cachedir = ~/.cache/mutt
+set mail_check       = 90
+set timeout          = 15
+set imap_idle        = yes
+unset imap_passive
+
+# account switching / specific imap & smtp stuff
+# -----------------------------------------------------------------------------
+
+source ${my_folder}/accounts/icloud # Default account
+
+# switch accounts easily
+macro index,pager <f2> '<sync-mailbox><enter-command> source \
+${my_folder}/accounts/erwin<enter><check-stats><change-folder>!<enter>\
+<browse-mailboxes><change-dir><kill-line>=<enter><exit>'
+
+# sidebar
+# -----------------------------------------------------------------------------
+
+set mail_check_stats      = yes
+set sidebar_visible       = yes
+set sidebar_short_path    = yes
+set sidebar_folder_indent = yes
+set sidebar_format        = '%B%?F? [%F]?%* %?N?%N/?%S'
+#set sidebar_divider_char  = '│'
+#set sidebar_indent_string = '└─'
+
+# index settings
+# -----------------------------------------------------------------------------
+
+set sleep_time      = 0 # Speed up folders switch
+set sort            = "reverse-threads"
+set sort_aux        = "last-date-received"
+set uncollapse_jump = yes
+set mark_old        = no
+unset collapse_unread
+
+# pager / attachments settings
+# -----------------------------------------------------------------------------
+
+# don't quote boxes of html emails converted with pandoc (lines starting and
+# ending with "|")
+set smileys      = '(>From )|(:[-^]?[][)(><}{|/DP])|(^\\|.*(\\|)$)'
+set mailcap_path = ${my_folder}/mailcap
+alternative_order text/enriched text/plain text/html
+auto_view text/html text/calendar application/ics
+
+# additional configuration options
+# -----------------------------------------------------------------------------
+
+set quit = ask-yes
+source ${my_folder}/bindings.muttrc

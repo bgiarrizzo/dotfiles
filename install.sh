@@ -50,7 +50,7 @@ link_file() {
 
 echo "Copy/link files from ${dotfiles_dir} into ${HOME} :"
 
-for name in cheat curl git mutt vim wget zsh; do
+for name in cheat curl git vim wget zsh; do
     for file in $(/bin/ls -A ${dotfiles_dir}/${name}/); do
         source="${dotfiles_dir}/${name}/${file}"
         target="${HOME}/$(basename ${file})"
