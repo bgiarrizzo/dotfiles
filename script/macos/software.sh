@@ -33,6 +33,11 @@ brew install watch
 brew install git-lfs
 brew install git
 
+# Desktop Mgmt Stuff
+brew install yabai
+brew install koekeishiya/formulae/skhd
+brew install FelixKratz/formulae/sketchybar
+
 # # Install useful stuff
 brew install --cask iterm2
 brew install --cask appcleaner
