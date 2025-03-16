@@ -134,6 +134,13 @@ if [ "${MACOS}" ]; then
 fi;
 
 # -------------------------------------
+# Linux Dedicated Commands
+
+if [ "${LINUX}" ]; then
+  alias code="nvim"
+fi;
+
+# -------------------------------------
 # Common Linux + Macos Aliases
 
 if [ "${MACOS}" ] || [ "${LINUX}" ]; then

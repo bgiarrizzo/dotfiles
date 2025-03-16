@@ -18,7 +18,7 @@ brew install tree
 
 brew install --cask rar
 brew install p7zip
-# brew install cheat
+brew install cheat
 brew install eza
 brew install fd
 brew install bat
